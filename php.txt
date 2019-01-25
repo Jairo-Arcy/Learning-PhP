@@ -1,0 +1,236 @@
+=================================PhP Básico=====================================
+-Cli: Comand Line Interface (Terminal)
+* O Php é uma Linguagem de processador e interpretador, não somente uma 
+linguagem de programação pura
+================================Constantes======================================
+- Há duas formas de Definir constantes:
+* Define()
+* Const
+- A diferença essencial entre as duas é que Const Deve ser declarada 
+antes de qualquer elemento php pois é lida em tempo de compilação e por isso
+elas não podem ser definidas dentro de funções ou laços ifs
+- A segunda Diferença é que const não aceita expressões inteiras ou valores 
+flutuantes mas define() aceita 
+================================Comentários=====================================
+- Os comentários podem ser feitos por "#", "//" ou "/**/"
+===============================Tipos de Dados===================================
+o Php Suporta 8 tipos de Dados: 
+-Tipos escalares(Básicos):
+*Integer
+*Boolean
+*Float(Ou "Double")
+*String
+-Tipos compostos:
+*Array
+*Object
+-Tipos Especiais:
+*Resource
+*NULL
+-Declarção:
+*$v_string = "Hello";
+
+*$v_boolean = TRUE;
+    
+*$v_integer = 100;
+
+*$v_float = 100.9;
+- Impressão dos Tipos:
+*echo gettype($v_float); // Retorna o tipo da variável.
+
+
+*var_dump($v_float); // Retorna o tipo e o valor da variável
+
+
+*var_dump( $v_boolean ); // Retorna o tipo e o valor da variável
+
+-Verificação de Tipos:
+* if( is_int($v_integer) ){
+echo '$v_integer é um inteiro. <br />';
+}
+
+ 
+*if( !is_bool($v_string) ){
+echo '$v_string não é um valor booleano.';
+}
+=================================var_dump=======================================
+- está função retorna o tipo da variavel e seu valor
+*retorna também outras funções dentro do php como constantes 
+========================Números de ponto Flutuante=====================================
+-Exemplos de Números Flutuantes:
+*<?php
+
+    
+*	var_dump( 10e3 ); // float 10000
+
+ 
+*   	var_dump( 2.5 ); // float 2.5
+
+
+*?>
+*10e3 é igual á mil pois é a mesma coisa de (10*(10*10)). ou 10 elevado a 3.
+
+*Não confie em resultados com números de ponto flutuante até a última casa e 
+nunca compare números de ponto flutuante em igualdades. Se seu aplicativo 
+trabalha com cálculos complexos (grandes números de ponto flutuante, cálculos 
+físicos) ou se você necessita de muita precisão, use as funções matemáticas
+de precisão arbitrária da extensão BCMath do PHP ou as funções relacionadas a 
+GMP(GNU Multiple Precision). 
+=================Formatando numeros e valores monetários=========================
+- o php não reconhece virgula como número flutuante, por isso devemos formatar 
+o número para padrão conhecido pelo Brasil ou qualquer outros
+- a função number_format serve para mostrar o número na tela formatado, é 
+recomendado que não se guarde no Banco De Dados esse valor dentro de 
+uma váriavel.
+* números calculáveis se guarda em forma flutuante no Banco de Dados
+* number_format não retorna um número como Inteiro, retorna somente uma String
+separada.
+==============================Outros Tipos De Dados==============================
+- o Tipo Object vem do paradigma de programação chamado Orientação a Objetos que
+se Refere a um instancia de uma classe
+-Declarando Objetos:
+*<?php
+
+
+/$obj = new StdClass();
+
+/$obj->nome = 'George Lucas';
+
+/$obj->email = 'george@mail.com';
+
+
+/var_dump($obj);
+
+- O Tipo de Dados de Resource foi incluindo no PhP 4. Um Recurso é uma variável
+especial, que mantém uma referência a um recurso externo
+(recurso externo é Aquele que não é usado nativamente pelo PhP). Rescursos são 
+usados por funções especiais.Os principais e talvez mais conhecidos recursos,
+entre os Desenvolvedores PHP são:
+* Biblioteca GD para manipulação de imagens.
+* Biblioteca CURL.
+* Biblioteca Zlib.
+* A função fopen() também retorna um recurso (a estudaremos posteriormente).
+
+-Uma variável é considerada NULL:
+
+*Se foi inicializada com a palavra NULL.
+*Se ainda não recebeu nenhum valor.
+*Foi apagada usando a função unset().
+===================================Strings==============================================
+- Uma característica única das aspas duplas (e que não acontece com as aspas
+ simples) é que dentro delas o interpretador do PHP procura por variáveis; 
+se encontrar, ele as interpreta.
+
+-Exemplo:
+*<?php
+
+    
+/$sobrenome = "Cursos";
+
+
+/$nome = "PHP $sobrenome";
+
+
+/echo $nome; //PHP Cursos
+
+
+?> 
+===============================Arrays Multidimensionais=========================
+-Uma chave de array também aceita como valor outro array. 
+Arrays multidimensionais armazenam mais de um nível de dados, que são usados 
+para a definição de estruturas mais complexas.
+
+-Exemplo:
+*<?php
+
+
+$html = [
+    
+'html' => [
+
+        'head' => [
+
+            'title',
+
+            'link',
+
+            'script'
+
+        ],
+        
+	'body' => [
+
+            'p',
+
+            'h1',
+
+            'div' => [
+
+                'p',
+ 
+               'a'
+
+            ]
+
+        ]
+
+    ]
+
+];
+
+
+print_r($html); 
+
+- A função print_r() é especialmente utilizada para imprimir arrays. 
+Ela facilita analisar a estrutura de um array. 
+- Podem ser inseridos quantos níveis forem necessários. 
+É possível manipular grandes estruturas com arrays multidimensionais. 
+Posteriormente você aprenderá a iterar (percorrer, analisar, excluir, 
+incluir) sobre eles.
+================================Converções de tipos=============================
+- As converções de Tipos são:
+*settype ($v "tipo");
+*((int) $v);
+==============================Operadores========================================
+-Existem vários tipos de operadores:
+* operadores Aritméticos
+* operadores de atribuição
+* operadores de comparação
+* operadores lógicos
+* operadores de incremento
+===========================Operadores Aritméticos================================
+- Os operaodores Aritméticos são:
+# + //Adição
+# - //Subtração
+# * //Multiplicação
+# / //divisão
+# % //modulo
+======================================ForEach=============================================
+- são especialmente projetados para Arrays, itera sobre todos os itens do Array
+=================================Continue e Break===============================
+-break interrompe a execução de um laço
+- continue é parecido com o break, mas não interrompe a execução do laço. Essa
+instrução apenas "pula" a iteração atual.
+- continue pode ser usado nos laços while, do...while, for e foreach.
+- num laço de 0 a 100 se quer imprimir apenas os números pares na tela:
+*<?php
+
+
+for($numero=0; $numero<=100; $numero++) {
+
+ 
+   if( ($numero%2) != 0 ) {
+
+        continue; // Pula
+ 
+   }
+
+    echo $numero . "<br>"; // Imprime na tela
+
+
+}	
+
+ 
+
+ 
+
+ 
