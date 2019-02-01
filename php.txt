@@ -228,6 +228,566 @@ for($numero=0; $numero<=100; $numero++) {
 
 
 }	
+=======================================Funções===================================
+- funções são blocos de códigos para facilitar tarefas repetitivas. Existem
+centenas de funções pré definidas pela própria linguagem PhP, por exemplo: 
+para conexões com o Bd, para trabalhar com strings, Arrays, manipulação de 
+arquivos, etc.Também é possivel definir as próprias funções.Qualquer código PhP
+Válido pode ser inserido numa função.No PhP, uma Função pode ou não receber a
+argumentos; uma função pode ou não retornar um valor
+
+-Sintaxe Básica:
+*function nomeDaFuncao(argumento1; argumento2; argumentoN ...) {
+  
+// Instruções/Comandos
+
+}
+====================================Funções Variadic=============================
+
+- Tratarmos parametros de funções de forma genérica.
+- A função variadic é nova no php, e Transforma os métodos passados como 
+parametro em Arrays
+- se Quisermos passar uma váriavel array em uma função de uma maneira bem mais 
+simples, basta usarmos a função variadic:
+*function(...$valorArray) {}
+-Dessa forma fica facil de declararmos parametros arrays em funções.
+- As funções variadics não aceita Um Tipo String como chave de Array, por isso,
+se necessitarmos passar a chave identificadora de cada array, usamos 
+somente numeros e a função imprime em ordem númerica.
+============================Funções anônimas=====================================
+-Funções anônimas são funções que se passam dentro de uma váriavel, é chamado
+assim pois não se declara um nome a esse tipo de função:
+ Sintaxe da função anonima:
+-$var = function() {
+
+}
+ - as vezes é melhor usar funções anonimas se caso seja um código muito pequeno
+a ser executado, é melhor par se criar também controladores em seu código.
+- as funções anonimas em PhP podem Ser Chamadas também de Closures
+==============================Require e Include==================================
+-Require e include são para chamar outros arquivos dentro de seu outro arquivo.
+Serve essencialmente para deixar seu código mais organizado.
+- sintaxe:
+* require 'conteudo.php';
+- pode também se passar diretórios dentro o computador.
+- o Require é um comando usado para executar o código, se não houver o arquivo 
+que se é chamado no require ele irá dar erro, já o include serve para incluir
+o arquivo, se ele não tiver, o código dara um erro, porém continuara executando 
+as partes que estão feitas corretamente, essa é a principal diferença, de
+include para require. 
+- Já o require_once e include_once, serve para que se por algum acaso você tenha
+chamado outro código duas vezes, ele irá executar mesmo asssim, essa é a
+principal diferença, por isso, se recomenda usar o require_once.
+=============================Funções para String=================================
+-O PHP possui dezenas de funções para o trabalho com strings. Conheça as principais e mais usadas.
+
+Transformando uma string
+
+A função strtr() é usada para substituir os caracteres de uma string por outros
+caracteres.
+
+Sintaxe:
+* strtr (string , de, para);
+
+Exemplo:
+*<?php
+
+
+$nome = 'Treina123 Cursos';
+
+
+echo strtr($nome, '123', 'Web'); // Retorno: TreinaWeb Cursos
+===========================Comparação de Strings===============================
+-Conforme explicado no tópico sobre Strings, deve-se ter cuidado com a 
+comparação de strings. Por exemplo, ao comparar uma string "treinaweb" com o 
+valor inteiro 0: 
+- <?php
+
+
+var_dump( "treinaweb" == 0 ); //True
+-O resultado será TRUE. Como a string não possui nenhum valor numérico no 
+início, a conversão dessa string para inteiro resulta em 0. Logo, 0 == 0 
+retorna TRUE. 
+ -Agora, usando a mesma lógica, ao comparar: 
+*<?php
+
+
+var_dump( "11t" == 11 ); //True
+- O resultado será TRUE, pois a string possui um início numérico e foi 
+truncada e convertida para inteiro int (11). 
+
+- Por esse motivo, nesse tipo de caso, é sempre bom utilizar o operador ===, 
+que compara o tipo e o valor. Altere o exemplo anterior para: 
+- <?php
+
+
+var_dump( "11t" === 11 ); // False
+- Usando o operador === obteve-se um resultado falso. Isso porque o 
+operador === compara o valor e o tipo de dado. Então, ele analisou: “ – 
+Espere aí, você está tentando fazer uma comparação de igualdade entre uma string
+e um valor inteiro. Não vou deixar. Vou retornar FALSE”. 
+- Além dos operadores de comparação, podem ser utilizadas as seguintes funções:
+
+strcmp() – Retorna 0 (zero) se as strings comparadas são iguais. É sensível à caixa, ou seja, diferencia letras maiúsculas e minúsculas.
+strcasecmp() – Idêntica à strcmp(), com a diferença de não ser sensível à 
+caixa.
+
+Exemplo:
+- <?php
+
+
+$nome = 'TreinaWeb Cursos';
+
+// Sensível à caixa
+
+
+if(strcmp($nome, 'treinaweb cursos') === 0) {
+    
+// Não passa porque 'treinaweb cursos' é diferente de 'TreinaWeb Cursos'
+
+
+}
+
+
+// Não sensível
+
+if(strcasecmp($nome, 'treinaweb cursos') === 0) {
+
+    echo 'A strcasecmp() passou';
+- Há também a função strncasecmp(), que é uma variação da strcasecmp().
+ Porém, esta apenas compara uma quantidade X de caracteres das duas strings 
+analisadas. 
+ Exemplo:
+* <?php
+
+
+$nome = 'TreinaWeb Cursos';
+
+// Passou
+
+if( strncasecmp($nome, 'Trei', 4) === 0) {
+
+    echo 'Passou 1';
+
+}
+
+
+// Não passou
+
+if( strncasecmp($nome, 'Tein', 4) === 0) {
+ 
+   echo 'Passou 2';
+
+}
+- Neste exemplo, é verificado apenas os primeiros 4 caracteres das duas 
+strings. 
+============================Buscas Em Strings===================================
+- Para buscas simples em strings pode-se contar com as funções:
+
+-strpos() - Encontra a posição da primeira ocorrência do caractere (substring) 
+localizado.
+-strstr() – Similar à strpos(). Porém, ao invés de retornar a posição, retorna 
+o trecho da string a partir (ou antes) da primeira ocorrência encontrada.
+
+- A função strpos() pode retornar a posição numérica da primeira ocorrência ou 
+retornar FALSE se a substring não for localizada. 
+=========================Extraindo Dados de String===============================
+- para Melhores informações:
+* http://php.net/manual/pt_BR/function.substr.php
+
+-  string
+
+    A string de entrada. Deve ter ao menos um caracter.
+start
+
+-Se start não for negativo, a string retornada iniciará na posição start 
+em string, começando em zero. Por exemplo, na string 'abcdef', o caractere na 
+posição 0 é 'a', o caractere na posição 2 é 'c', e assim em diante.
+
+-Se start for negativo, a string retornada irá começar no caractere start a partir do fim de string.
+
+-Se a string for mais curta que o parâmetro start, FALSE will be returned.
+
+Exemplo #1 Usando um início negativo:
+
+    *<?php
+    *$rest = substr("abcdef", -1);    // retorna "f"
+    *$rest = substr("abcdef", -2);    // retorna "ef"
+    *$rest = substr("abcdef", -3, 1); // retorna "d"
+    *?>
+=========================Funções Disponiveis no PhP================================
+- printf: se parece com echo mas espera que a variavel esteja em place roader
+formatado, que espera receber uma string ou outro tipo de váriavel.
+* %s:para String; %d: Casa Decimal; %f: flutuante ou reais;
+- para formatar a casa flutuante, basta colocar quantas casas depois da virgula 
+após colocar o %.
+- se quisessemos passar frases ao invés da variavel no printf, poderiamos sem 
+problema algum, depois basta não esquecer de colocar o printf.
+- vprintf: funciona da mesma forma que o printf, porém ao invés de váriaveis 
+podemos, passar arrays no placeroader.O vsprintf funciona da mesma forma, porém
+temos que colocar um echo para exibir pois como o sprintf ele retorna os valores
+
+-Explode:
+*Sintaxe: $valorVariavel = explode('Onde será explodido', $varivelExplodida);
+- o Explode, serve para "Explodir alguma determinada parte da váriavel" e 
+transfroma-la em array.
+
+- htmlentities: não interpreta tags html no php.
+- outra função importante é a preg_replace, que troca da seguinte forma:
+
+Sintaxe: 
+-preg_replace('/O que será trocado/', 'Alterar dessa forma', $conteúdoAlterado);
+- sha1; criptografa strings em váriaveis, melhor maneira de salvar senha do 
+usúario no php.
+=============================Ponteiro de Arrays====================================
+
+-reset() – Aponta o ponteiro interno para o primeiro elemento do array e 
+devolve o seu valor.
+-end() – Aponta o ponteiro interno para o último elemento do array e devolve o 
+seu valor.
+
+-next() – Aponta o ponteiro interno para o próximo elemento do array e devolve
+ o seu valor.
+
+-prev() – A ponta o ponteiro interno para o elemento anterior do array e 
+devolve o seu valor. Funciona de maneira inversa à função next().
+
+-current() – Devolve o valor do elemento atual do array, indicado pelo 
+ponteiro interno.
+
+-key() - Funciona de maneira semelhante à função current() mas, ao invés de 
+devolver o valor do elemento indicado pelo ponteiro interno do array, devolve 
+o seu índice/chave.
+===============================Ordenação de Arrays==============================
+-sort() - A função mais simples de ordenação de arrays. Ordena os elementos de 
+um array em ordem crescente. O índice dos elementos muda, de acordo com a ordem
+ em que são exibidos.
+
+-rsort() - Funciona de maneira inversa à função sort(): Ordena os elementos de
+um array em ordem decrescente. O índice dos elementos muda, de acordo com a 
+ordem em que são exibidos.
+
+-asort() - Tem o funcionamento semelhante à função sort(): Ordena os elementos 
+de um array em ordem crescente, porém mantém os índices sem alterá-los.
+
+-arsort() - Funciona de maneira inversa à função asort(). Ordena os elementos 
+de um array em ordem decrescente, porém mantém os índices sem alterá-los.
+
+-Shuffle() – Diferente das outras, essa “desordena” completamente o array. 
+Quando aplicada, os elementos são distribuídos de forma randômica. Seus 
+índices não são mantidos.
+==================================Pilhas e Filas=================================
+-Filas: são estruturas baseadas no princípio FIFO (first in, first out), em 
+que os elementos inseridos no início são os primeiros a serem removidos.
+
+-Pilhas: são estruturas baseadas no princípio LIFO (last in, first out), no 
+qual os dados inseridos no final da pilha são os primeiros a serem removidos. 
+Existem duas funções que se aplicam a todas as pilhas: PUSH, que insere um 
+dado no final da pilha; e POP, que remove o ultimo item da pilha.
+- array_push: serve para adicionarmos elementos no Array.No final do array
+- array_pop: retira o Ultimo elemento do array e pode ser retornado em uma outra
+váriavel.
+- array_shift: Retira e retorna o primeiro elemento do array, diminuindo-o em 
+um elemento e movendo todos os outros elementos para trás. Todas as chaves 
+numéricas são alteradas para começar a contar de 0 (zero), enquanto chaves 
+string permanecem inalteradas. Depois de usada, essa função reseta o ponteiro 
+do array. Confira: 
+*<?php
+
+*
+$cursos = array("PHP","CSS3","HTML5","MySQL");
+
+
+*$curso = array_shift($cursos);
+// Pode imprimir o elemento removido: 
+*echo $curso;
+
+print_r($cursos);
+- array_unshift: adiciona elemento no começo do array.
+- array_shift: retira e retorna o primeiro elemento da array.
+
+=================================Contando Váriaveis==============================
+- Podemos Obter um valor de um Array Através da Função count(), ele Recebe 
+um Array e retorna a quantidade de elementos contido.
+- Sintaxe:
+*count($var);
+- Da mesma Forma, Temos o isset($a[0]) que serve para verificar se um array
+existe, Também podemos Verificar se váriaveis existem.
+- in_array:Serve Para Verificar se um valor no Array existe 
+==============================Funções Matemáticas================================
+- max() retorna o maior valor encontrado.
+- min() retorna o menor valor encontrado.
+- Para arredondamento de valores, pode-se contar com as seguintes funções:
+- round() — Arredonda um número.
+- ceil() — Arredonda frações para cima.
+- floor() — Arredonda frações para baixo.
+=========================Gerando Valores Aleátórios==============================
+- rand(min, max) — Gera um inteiro aleatório.
+- mt_rand(min, max) — Versão melhorada da rand(), é mais segura e mais rápida 
+na geração dos números. Portanto, use-a no lugar de rand().
+- getrandmax(void) — Retorna o valor máximo que pode ser gerado em uma chamada 
+à função rand().
+- mt_getrandmax(void) — Versão melhorada da getrandmax(). Retorna o valor 
+máximo que pode ser gerado em uma chamada à função mt_rand().
+=======================Outras formas de adicionarmos as Funções==================
+- O PHP possui três funções para o trabalho com argumentos de funções. Com 
+elas é possível saber quantos argumentos foram passados, e ter uma lista 
+(em arrays) desses argumentos.
+- As funções são estas:
+
+* func_num_args() – Retorna o número de argumentos passados para a função.
+
+* func_get_arg() – Retorna o valor de um argumento em particular, basta que 
+seu índice seja informado.
+
+* func_get_args() – Retorna um array com todos os argumentos.
+
+- essas funções são ótimas para usarmos em laçoes foreach, pois possibilita 
+faclmente pegarmos tamanhos de elementos e passar para váriaveis.
+=============================Escopo Global e Local===============================
+- Para declararmos um escopo local em uma váriavel que é global podemos usar a
+propriedade global.
+- um Escopo global é aquilo que podemos acessar somente em uma região de nosso 
+código, já um escopo suber global podemos acessar de qualquer parte de nosso 
+código.
+- laços de repetição e condição são acessiveis a uma váriavel declarada na head
+do código.
+- já em funções as váriaveis não são acessiveis, pois o escopo da função é 
+proprio. 
+* Formatos para dia:
+d: dia do mês, 2 digitos com preenchimento de zero (01 a 31)
+D: uma representação textual de um dia, Três letras (mon a sun)
+j: dia do mês sem prenchimento de zero (1 a 31)
+l/L: Representação textual completa do dia da semana (Sunday a Saturday)
+N: representção numerica ISO-8601 do dia da semana 
+(1 para segunda a 7 para domingo)
+S:sufixo orrdinel inglês para o dia do Mês, (st, nd..)
+w: representção númerica do dia da semana
+z: p da do ano começando com zero (0....365)
+
+*Formatos para mês:
+w: número do ano da semana ISO-8601, semanas começam na Segunda 
+(semana de número x do ano)
+F: Uma representação completa do Mês, como January ou March
+m: representção númerica de um mês, com zeros á esquerda(01 a 12)
+M: A representção textual curta de um mês, três letras.  (jan a Dec)
+n: representção númerica de um mês sem zeros á esquerda. (1 a 12)
+t: Númers de dias de um dado Mês (entre 28 a 31)
+
+*Formatos pra ano: 
+L: Se está em um ano bissexto 
+o: Número do ano ISO-8601. Este tem o mesmo valor
+Y: Representação númérica de um ano com 4 digitos.
+y: representação númerica de um ano com 2 digitos
+
+*Fomatos para timezones(fusos horários):
+e:identificar timezone(UTC, GMT,Atlantic,Azores)
+
+I(capital)/i: Se data está ou não no horário de verão.(1 se 
+horário de verão 0 se não).
+
+O: diferença para Greenwich time (GMT) em horas(+0200) 
+P:Diferença para Greenwich time (GMT) com dois pontos entre horas e minutos
+(+02:00)
+T:Abreviação de timezone. (EST, MDT)
+Z:timezone offset em segundos.O offset para timezones á oeste de UTC serão 
+sempre negativo e a leste sempre positivo.
+
+*Formatos Para Tempo/hora:
+a: de meio-dia em minusculo (am ou pm) 
+A:Antes/Depois de meio-dia em maiusculo (AM ou PM)
+g:formmato 12 horas de uma hora sem preenchimento de zero (1 até 12)
+G: Formato 24 hoas de uma hora sem preenchimento de zero (0 até 23)
+h: Formato 12 horas de uma hora com zero preenchido á esquerda (01 até 12)
+H: Formato 24 horas uma hora com zero preenchido á esquerda (00 até 23)
+i: minutos com zero preenchido á esquerda (00 até 59)
+s: Segundos, com zero preenchendo á esquerda
+u: Milissegundos (Exemplo:54321)
+===============================Manipulação de Arquivos===========================
+-fopen(nome, modo) — Tenta abrir um arquivo.
+
+-fwrite(arquivo, conteudo) – Escreve no arquivo.
+
+-fread(arquivo, bytes) – Lê um arquivo por completo ou parte dele (dependendo 
+do número de bytes que for informado).
+
+-fclose(arquivo) - Fecha a “conexão” com o arquivo. É recomendado seu uso 
+sempre após operar sobre o arquivo.
+
+- A função fopen() aceita dois argumentos: Nome do arquivo e o segundo que for definido como modo que se quer operar. Os modos possíveis de operação são:
+
+* “r” - Abre somente para leitura; coloca o ponteiro do arquivo no começo do 
+arquivo.
+
+* “r+“- Abre para leitura e escrita; coloca o ponteiro do arquivo no começo do
+ arquivo.
+
+* “w” - Abre somente para escrita; coloca o ponteiro do arquivo no começo do 
+arquivo e reduz o comprimento do arquivo para zero. Se o arquivo não existir, 
+tenta criá-lo.
+
+* “w+” - Abre para leitura e escrita; coloca o ponteiro do arquivo no começo 
+do arquivo e reduz o comprimento do arquivo para zero. Se o arquivo não 
+existir, tenta criá-lo.
+
+* “a” - Abre somente para escrita; coloca o ponteiro do arquivo no final do
+ arquivo. Se o arquivo não existir, tenta criá-lo.
+* “a+” - Abre para leitura e escrita; coloca o ponteiro do arquivo no final do 
+arquivo. Se o arquivo não existir, tenta criá-lo.
+
+* “x” - Cria e abre o arquivo somente para escrita; coloca o ponteiro no 
+começo do arquivo. Se o arquivo já existir, a chamada a fopen() falhará, 
+retornando FALSE e gerando um erro de nível E_WARNING. Se o arquivo não 
+existir, tenta criá-lo.
+
+* “x+” - Cria e abre o arquivo para leitura e escrita; coloca o ponteiro no 
+começo do arquivo. Se o arquivo já existir, a chamada a fopen() falhará, 
+retornando FALSE e gerando um erro de nível E_WARNING. Se o arquivo não 
+existir, tenta criá-lo.
+
+-A função nlbr2() converte as quebras de linha (aquelas criadas pela constante 
+PHP_EOL) para tag de quebra de linha do HTML <br>:.
+
+-A função filesize() retorna o tamanho do arquivo em bytes. Basta informar a 
+ela o diretório deste arquivo. Mas, se quiser obter apenas parte do conteúdo,
+ pode informar isso em bytes. Faça o seguinte, altere a linha do exemplo:.
+
+- o fscanf() é parecido com o printf que pode formatar o texto com instruções 
+
+===========================PHP e o Desenvolvimento Web===========================
+- Para Sabermos mais sobre o desenvolvimento web Com php precisamos entender 
+mais sobre o protocolo HTTP e seus métodos Get e Post.
+- HTTP(Hypertext Transfer Protocol) é um protocolo de comunicação(uma linguagem
+textual) que permite que duas máquinas se comuniquem entre si.
+
+-Por Exemplo: 
+
+*Meu navegador------------------http://www.Requisito.com------->Servidor(prepara
+o resultado HTML)
+*Meu navegador<-----------------http://www.Requisito.com--------Servidor
+
+-Esse exemplo mostra duas eatapas: Requisição e resposta.Primeiro o servidor
+é requisitado, e depois a resposta dele é obtida. 
+em outras Palavras: 
+* 1) O usuário acessa a URL de um site
+* 2) isso Cria um pedido que é encaminhado para um servidor web através 
+da internet (uma rede DNS, de routers e switches)sobre HTTP(Hypertext Transfer
+Protocol).
+3)o Servidor web recebe a solicitação HTTP e responde ao usuário com a página 
+web (ou conteúdo) que foi solicitado.
+
+-Toda a comunicação na web começa com uma requisição. Ela é uma mensagem de 
+texto criada por um cliente (por exemplo, um navegador, uma aplicação para 
+Android, telnet etc.) em um formato especial conhecido como HTTP. O cliente 
+envia essa requisição para um servidor e espera pela resposta. 
+
+- para Requisitarmos uma ligação com uma determinado página na web temos 
+métodos HTTP para isso, são eles:
+
+* GET - Recupera um recurso do servidor.
+* POST - Cria um recurso no servidor.
+* PUT - Atualiza um recurso no servidor.
+* DELETE - Exclui um recurso do servidor.
+
+- Quando se Trata de manipular Formulários em HTML os métodos GET e Post são 
+utilizados para:
+
+* GET - Passa os valores pela URL, ou seja: podem-se ver as variáveis passadas 
+na URL da página-destino definida no campo action.
+
+* POST - Passa as variáveis de maneira transparente para o usuário: somente o 
+navegador (através de seu código-fonte) e o servidor, de onde os dados foram 
+postados, têm acesso à leitura deles.
+
+- Os nomes do input que serão acessados pelo php, é importante sempre termos o 
+nome em mente.
+
+- O método GET utiliza a própria URI(url) para enviar dados ao servidor. O 
+número de dados que podem ser enviados é limitado. GET pode ser cacheado 
+(armazenado em cache) dependendo das configurações do navegador e também dos 
+cabeçalhos HTTP do recurso.
+
+- O método POST envia os dados colocando-os no corpo da mensagem. Ou seja, ele 
+deixa a URI separada dos dados que serão enviados (fica encapsulada). Com isso
+é possível enviar qualquer tipo de dado por esse método (coleções de binários
+como, por exemplo, imagens, música, etc., algo que não pode ser feito usando 
+GET). POST, na maioria das vezes, não pode ser cacheado.
+====================================Idempotente==================================
+-Idempotente pode ser entendido como "mesmo efeito". GET é idempotente e POST 
+não é idempotente (de acordo com a especificação do HTTP 1.1).
+
+-Uma requisição idempotente deve retornar a mesma coisa, não importa quantas 
+vezes ela é feita (dados os mesmos parâmetros, no caso do GET). Ou seja, deve
+ ter sempre os mesmos efeitos colaterais no servidor, não importando quantas 
+requisições idempotentes são feitas. (Por isso pode ser entendida como "mesmo 
+efeito").
+
+-Por exemplo, uma página de busca. Ao efetuar uma busca, a URL (URI) fica 
+desta forma: 
+ *www.site.com.br/?p=cursos&pagina=2
+
+- Essa URI pode ser copiada e enviada para outra pessoa. Ela vai acessar e ter 
+o mesmo resultado, quantas vezes forem necessárias (é claro, de tempos em 
+tempos essa paginação pode mudar e, consequentemente, os dados exibidos).
+
+-Já o POST não é considerado idempotente. O método, quando não é idempotente,
+ pode trazer dano à aplicação se a ação dele for executada várias vezes. Por 
+exemplo, não se podem colocar dados numa URL para efetuar um pagamento, pois 
+todas as vezes que o usuário atualizar a página fazendo refresh (apertando F5),
+ ou que a executar em outro local, um novo pagamento será cadastrado no servidor
+ (isso teoricamente falando, pois há como proteger e evitar tal duplicidade. A 
+intenção do exemplo foi apenas diferenciar Idempotente de não Idempotente).
+
+- Na prática, qual usar?
+
+- Sempre que for buscar ou apenas consultar alguma coisa, utilize GET. Se for 
+fazer alguma alteração com a requisição, envio de arquivo, envio de formulário 
+para contato, ou se os dados forem muitos, utilize POST.
+
+Exemplos:
+* Ação de deletar um comentário - Utilize POST.
+* Ação de exibir o conteúdo de um comentário - Utilize GET (retorno de dado).
+* Ação de realizar uma busca - Utilize GET.
+* A ação de cadastrar um produto – Utilize POST.
+
+Pense no exemplo de cadastro de Contato. Se ao postar o formulário os dados do 
+contato fossem passados diretamente pela URL, assim: 
+* processaCadastro.php?nome=Pedro&email=email@treinaweb.com.br&telefone=99999999
+
+- Se essa URL “cair” nas mãos de outras pessoas, esse contato “Pedro” será 
+cadastrado “infinitas” vezes (a cada novo acesso a essa url). Usando o método
+ HTTP POST ele só seria cadastrado ao preencher o formulário e clicar em 
+“Cadastrar” para submeter o formulário, já que os dados seriam enviados de 
+forma “transparente” e não explícitos na URL.
+
+-Por isso a lógica: Use GET para visualizar/retornar dados e POST para 
+alterar/enviar/modificar comportamentos. Pode ser que, neste momento, isso 
+ainda não tenha esteja totalmente esclarecido para você. Nos próximos módulos
+ do curso de PHP, quando os bancos de dados forem usados, esses métodos serão
+ bem praticados e você ficará mais experiente.
+
+- Em suma: essas são as recomendações, pois o desenvolvedor pode fazer com que
+ um GET não seja Idempotente e que um POST seja Idempotente. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  
 
