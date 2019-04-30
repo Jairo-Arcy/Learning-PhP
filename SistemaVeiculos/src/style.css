@@ -1,0 +1,20 @@
+body,html {
+    margin:0;
+    padding:0;
+    height: 100%;
+    width:100%;
+  /*background-color: rgba(0, 0, 0, 0.308);*/
+}
+.card-panel {
+    height: 100%;
+}
+
+
+.fixed-action-btn{
+    transform: translateX(-100px);
+    padding:0;
+}
+
+.fixed-action-btn.direction-top.tap-target-origin{
+    transform: translate(-30px, -25px);
+}
